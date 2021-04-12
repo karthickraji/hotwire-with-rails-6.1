@@ -1,49 +1,69 @@
-<%= form_with(model: book) do |form| %>
-  <% if book.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(book.errors.count, "error") %> prohibited this book from being saved:</h2>
+<%= form_with(model: book, class: "form-inline") do |form| %>
+  <div class="row">
+    <% if book.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(book.errors.count, "error") %> prohibited this book from being saved:</h2>
 
-      <ul>
-        <% book.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+        <ul>
+          <% book.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="col-12 mb-2">
+    <div class="row">
+      <div class="col-3">
+        <div class="form-group">
+          <%= form.text_field :title, class: "form-control", placeholder: "Title" %>
+        </div>
+      </div>
+
+      <div class="col-3">
+        <div class="form-group">
+          <%= form.text_field :isbn, class: "form-control", placeholder: "ISBN" %>
+        </div>
+      </div>
+
+      <div class="col-3">
+        <div class="form-group">
+          <%= form.text_field :total_pages, class: "form-control", placeholder: "Total Pages" %>
+        </div>
+      </div>
+
+      <div class="col-3">
+        <div class="form-group">
+          <%= form.date_field :published_date, class: "form-control", placeholder: "Published Date" %>
+        </div>
+      </div>
     </div>
-  <% end %>
-
-  <div class="form-group">
-    <%= form.label :title %>
-    <%= form.text_field :title, class: "form-control" %>
   </div>
 
-  <div class="form-group">
-    <%= form.label :isbn %>
-    <%= form.text_field :isbn, class: "form-control" %>
-  </div>
+  <div class="col-12 mb-2">
+    <div class="row">
+      <%= form.fields_for :author_attributes do |a|%>
 
-  <div class="form-group">
-    <%= form.label :total_pages %>
-    <%= form.text_field :total_pages, class: "form-control" %>
-  </div>
+        <div class="col-3">
+          <div class="form-group">
+            <%= a.text_field :name, class: "form-control", placeholder: "Author Name" %>
+          </div>
+        </div>
 
-  <div class="form-group">
-    <%= form.label :published_date %>
-    <%= form.date_field :published_date, class: "form-control" %>
-  </div>
+        <div class="col-3">
+          <div class="form-group">
+            <%= a.text_field :contact_number, class: "form-control", placeholder: "Author Contact Number" %>
+          </div>
+        </div>
+      <% end %>
 
-  <%= form.fields_for :author_attributes do |a|%>
-    <div class="form-group">
-      <%= a.label :author_name %>
-      <%= a.text_field :name, class: "form-control" %>
+      <div class="col-3">
+        <div class="form-group">
+          <%= form.submit %>
+        </div>
+      </div>
     </div>
-
-    <div class="form-group">
-      <%= a.label :author_contact_number %>
-      <%= a.text_field :contact_number, class: "form-control" %>
-    </div>
-  <% end %>
-
-  <div class="actions">
-    <%= form.submit %>
   </div>
+
 <% end %>

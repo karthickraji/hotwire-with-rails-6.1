@@ -1,0 +1,14 @@
+<% books.each do |book| %>
+  <div class="card mb-3">
+    <div class="card-body">
+      <h5 class="card-title"><%= book.title %></h5>
+      <p class="card-text"><%= book.isbn %> | <%= book.total_pages %></p>
+      <p class="card-text"><%= book.published_date %></p>
+      <p class="card-text"><%= book.try(:author).try(:name) %></p>
+    </div>
+    <div class="card-footer">
+      <%= link_to 'Show', book %> | <%= link_to 'Edit', edit_book_path(book) %> |
+      <%= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' } %>
+    </div>
+  </div>
+<% end %>

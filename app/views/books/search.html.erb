@@ -1,0 +1,13 @@
+<div class="row mt-4">
+  <div class="col-12">
+    <div class="search-block" data-controller="search">
+      <form class="form-inline">
+        Search Book<input id="query" class="form-control ml-2" type="text" name="query" data-search-target="query" data-action="keyup->search#submit">
+      </form>
+
+      <div id="search-books" class="mt-3" data-search-target="books">
+        <%= render partial: "book_list", locals: {books: @books} %>
+      </div>
+    </div>
+  </div>
+</div>

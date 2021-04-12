@@ -3,8 +3,20 @@ class BooksController < ApplicationController
 
   # GET /books or /books.json
   def index
-    @books = Book.all
+    @books = Book.order(created_at: :desc)
     # @book = Book.new
+  end
+
+  def search
+    if params[:query]
+      @books = Book.where("title LIKE ?", "%#{params[:query]}%")
+    else
+      @books = Book.order(created_at: :desc)
+    end
+    respond_to do |format|
+      format.html
+      format.json { render json: { books: @books } }
+    end
   end
 
   # GET /books/1 or /books/1.json
@@ -28,10 +40,10 @@ class BooksController < ApplicationController
     respond_to do |format|
       if @book.save
         format.html { redirect_to books_url, notice: "Book was successfully created." }
-        # format.json { render :index, status: :created, location: @book }
+        format.json { render :index, status: :created, location: @book }
       else
-        format.html { render :new, status: :unprocessable_entity }
-        # format.html { redirect_to books_url, status: :unprocessable_entity }
+        # format.html { render :new, status: :unprocessable_entity }
+        format.html { redirect_to books_url, status: :unprocessable_entity }
         format.json { render json: @book.errors, status: :unprocessable_entity }
       end
     end
@@ -60,13 +72,13 @@ class BooksController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_book
-      @book = Book.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_book
+    @book = Book.find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def book_params
-      params.require(:book).permit(:title, :description, :isbn, :total_pages, :published_date, author_attributes: [:id, :name, :contact_number])
-    end
+  # Only allow a list of trusted parameters through.
+  def book_params
+    params.require(:book).permit(:title, :description, :isbn, :total_pages, :published_date, author_attributes: [:id, :name, :contact_number])
+  end
 end

@@ -12,8 +12,10 @@
 
   <body>
     <%= render "layouts/nav_bar" %>
-    <div class="container-fluid">
-      <%= yield %>
+    <div class="container">
+      <div class="row">
+        <%= yield %>
+      </div>
     </div>
   </body>
 </html>
