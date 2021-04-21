@@ -7,9 +7,12 @@ import Rails from "@rails/ujs"
 import "@hotwired/turbo-rails"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
+require("jquery")
 
 Rails.start()
 ActiveStorage.start()
+
+require("third_party_libs/jquery.validate.min.js")
 
 import 'bootstrap';
 import "controllers"

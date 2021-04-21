@@ -1,6 +1,11 @@
 class BooksController < ApplicationController
   before_action :set_book, only: %i[ show edit update destroy ]
 
+  def form_only_for_stimulus
+    @book = Book.new
+    @author = @book.build_author
+  end
+
   # GET /books or /books.json
   def index
     @books = Book.order(created_at: :desc)
