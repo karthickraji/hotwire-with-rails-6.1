@@ -12,6 +12,7 @@
  *
  *= require bootstrap
  *= require books
+ *= require third_party_libs/jquery.dataTables.min.css
  * require_tree .
  *= require_self
  */

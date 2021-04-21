@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+<div class="row" data-controller="books">
+  <div class="col-6">
+    <h1>Books</h1>
+    <%= link_to 'New Book', form_only_for_stimulus_books_path, class: "btn btn-sm btn-primary mb-2" %>
+    <br>
+
+    <!-- table id="list-books" data-action="load@window->books#draw_books_table" -->
+    <table id="list-books">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Total pages</th>
+          <th>Isbn</th>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @books.each do |book| %>
+          <tr>
+            <td><%= book.title %></td>
+            <td><%= book.total_pages %></td>
+            <td><%= book.isbn %></td>
+            <td><%= link_to 'Show', book %></td>
+            <td><%= link_to 'Edit', edit_book_path(book) %></td>
+            <td><%= link_to 'Destroy', book, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col-6">
+    <!-- canvas id="myChart" width="400" height="400" data-action="load@window->books#draw_books_graph"></canvas -->
+    <canvas id="myChart" width="400" height="400"></canvas>
+  </div>
+</div>

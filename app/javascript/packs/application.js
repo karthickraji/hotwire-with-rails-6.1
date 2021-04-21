@@ -13,6 +13,8 @@ Rails.start()
 ActiveStorage.start()
 
 require("third_party_libs/jquery.validate.min.js")
+require("third_party_libs/jquery.dataTables.min.js")
+require("third_party_libs/chart.min.js")
 
 import 'bootstrap';
 import "controllers"

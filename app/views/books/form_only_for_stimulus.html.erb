@@ -1,8 +1,9 @@
-<%= form_with(model: @book, class: "form-inline mt-4", id: "books-form") do |form| %>
+<div class="col-12">
+<%= form_with(model: @book, class: "mt-4", id: "books-form") do |form| %>
   <div class="row">
     <% if @book.errors.any? %>
       <div id="error_explanation">
-        <h2><%= pluralize(book.errors.count, "error") %> prohibited this book from being saved:</h2>
+        <h2><%= pluralize(@book.errors.count, "error") %> prohibited this book from being saved:</h2>
 
         <ul>
           <% @book.errors.each do |error| %>
@@ -14,52 +15,65 @@
   </div>
 
   <div class="row">
-    <div class="col-12 mb-2">
-      <div class="form-group">
-        <%= form.text_field :title, class: "form-control required", placeholder: "Title" %>
-      </div>
-    </div>
-
-    <div class="col-12 mb-2">
-      <div class="form-group">
-        <%= form.text_field :isbn, class: "form-control required", placeholder: "ISBN" %>
-      </div>
-    </div>
-
-    <div class="col-12 mb-2">
-      <div class="form-group">
-        <%= form.text_field :total_pages, class: "form-control required", placeholder: "Total Pages" %>
-      </div>
-    </div>
-
-    <div class="col-12 mb-2">
-      <div class="form-group">
-        <%= form.date_field :published_date, class: "form-control required", placeholder: "Published Date" %>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <%= form.fields_for :author_attributes do |a|%>
-
-      <div class="col-12 mb-2">
-        <div class="form-group">
-          <%= a.text_field :name, class: "form-control required", placeholder: "Author Name" %>
+    <div class="col-10">
+      <div class="form-group row">
+        <label for="book_title" class="col-sm-3 col-form-label">Title</label>
+        <div class="col-sm-9">
+          <%= form.text_field :title, class: "form-control required", placeholder: "Title" %>
         </div>
       </div>
-
-      <div class="col-12 mb-2">
-        <div class="form-group">
-          <%= a.text_field :contact_number, class: "form-control required", placeholder: "Author Contact Number" %>
+    </div>
+    <div class="col-10">
+      <div class="form-group row">
+        <label for="book_isbn" class="col-sm-3 col-form-label">ISBN</label>
+        <div class="col-sm-9">
+          <%= form.text_field :isbn, class: "form-control required", placeholder: "ISBN" %>
         </div>
       </div>
-    <% end %>
+    </div>
 
-    <div class="col-12 mb-2" data-controller="books">
+    <div class="col-10">
+      <div class="form-group row">
+        <label for="book_total_pages" class="col-sm-3 col-form-label">Total Pages</label>
+        <div class="col-sm-9">
+          <%= form.text_field :total_pages, class: "form-control required", placeholder: "Total Pages" %>
+        </div>
+      </div>
+    </div>
+    <div class="col-10">
+      <div class="form-group row">
+        <label for="book_published_date" class="col-sm-3 col-form-label">Published Date</label>
+        <div class="col-sm-9">
+          <%= form.date_field :published_date, class: "form-control required", placeholder: "Published Date" %>
+        </div>
+      </div>
+    </div>
+
+  <%= form.fields_for :author_attributes do |a|%>
+      <div class="col-10">
+        <div class="form-group row">
+          <label for="book_name" class="col-sm-3 col-form-label">Author Name</label>
+          <div class="col-sm-9">
+            <%= a.text_field :name, class: "form-control required", placeholder: "Author Name" %>
+          </div>
+        </div>
+      </div>
+      <div class="col-10">
+        <div class="form-group row">
+          <label for="book_contact_number" class="col-sm-3 col-form-label">Author Contact Number</label>
+          <div class="col-sm-9">
+            <%= a.text_field :contact_number, class: "form-control required", placeholder: "Author Contact Number" %>
+          </div>
+        </div>
+      </div>
+  <% end %>
+
+    <div class="col-5" data-controller="books">
       <div class="form-group">
         <%= form.submit class: "btn btn-primary", data: {action: "click->books#validate_form"} %>
       </div>
     </div>
   </div>
 <% end %>
-
+</div>
+<%= link_to "Back", list_all_books_path %>

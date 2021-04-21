@@ -6,6 +6,17 @@ class BooksController < ApplicationController
     @author = @book.build_author
   end
 
+  def list_all
+    @books = Book.order(created_at: :desc)
+    @date_wise_count = Book.order(:created_at).group("DATE(created_at)").count
+    respond_to do |format|
+      format.html 
+      format.json {
+        render :json => {dates: @date_wise_count.keys, counts: @date_wise_count.values}
+      }
+    end
+  end
+
   # GET /books or /books.json
   def index
     @books = Book.order(created_at: :desc)
